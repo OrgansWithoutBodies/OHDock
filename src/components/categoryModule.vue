@@ -63,6 +63,9 @@ margin:10px;
   display:inline-block;
   background-color:white;
 }
+.inputbtn:hover+label{
+  background-color:lightpink;
+}
 .inputbtn:checked+label{
 background-color:red;
 }

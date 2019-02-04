@@ -55,12 +55,15 @@ export default {
 <style scoped>
 .autocomplete{
   display:grid;
-  position:absolute;
-  top:40;
-  left:0;
+  position:relative;
+  width:100%;
+  top:-18px;
   border:1px solid black;
   background-color:white;
   z-index:999;
+}
+.match{
+  border-radius:3px;
 }
 .match:hover{
   background-color:green;

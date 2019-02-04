@@ -1,5 +1,6 @@
 <template>
   <div class="hello">
+  <div id="titlelbl">DOCK DONATION TAKER</div>
   <donor-module id="donor" :donors="dons"/> 
   <dump-module id="dump"/>
   <print-module id="print"/>
@@ -38,6 +39,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.hello{
+  background-color:darkgrey;
+  padding:20px;
+  border-radius:15px;
+}
 #donor{
 grid-area:donor;
 }
@@ -47,14 +53,22 @@ grid-area:donor;
 #print{
   grid-area:print;
 }
+#titlelbl{
+  grid-area:title;
+  font-size:2em;
+}
 .hello{
   display:grid;
-  grid-template:"donor cats cats"
-                "dump cats cats"
-                "print cats cats"
+  grid-template:
+    "title title ."
+    "donor cats cats"
+    "dump cats cats"
+    "print cats cats"
 }
 #categorywrapper{
   display:grid;
+  border-radius:5px;
+  box-shadow: inset 0 0 10px #000000;
   grid-template-columns:1fr 1fr;
   grid-area:cats;
   background-color:#f5f5f5;

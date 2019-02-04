@@ -1,12 +1,15 @@
 <template>
   <div class="modulewrapper">
-  <input type="text" placeholder="Enter Existing Donor" v-model="query">
-  <Autocomplete :query="query" @selected="testfn"/>
-  <button @click='togglemodal'>Add New Donor</button>
+  <button @click='togglemodal'class="adddon">Add New Donor</button>
+  <div class="boxwrapper">
+    <input type="text" placeholder="Enter Existing Donor" v-model="query">
+    <Autocomplete :query="query" @selected="testfn"/>
+  </div>
   <p>
-    <div v-if="selecteddonor!=''">
-    <button class="seldel" @click="clearsel">x</button>
-      {{selecteddonor.Firstname}}, {{selecteddonor.Lastname}} donated:
+
+    <div v-if="selecteddonor!=''" class="seldon">
+      <button class="seldel" @click="clearsel">x</button>
+        {{selecteddonor.Firstname}}, {{selecteddonor.Lastname}} donated:
     </div>
   <add-new-donor-modal v-if="addingnew"/>
   </div>
@@ -48,8 +51,26 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.adddon{grid-area:btn;}
+.modulewrapper{
+  display:grid;
+  width:500px;
+  grid-template:
+  "boxes btn"
+  "boxes sel";
+}
+input{
+  width:200px;
+}
+.boxwrapper{
+  width:200px;
+  grid-area:boxes;
+}
+.seldon{
+  grid-area:sel;
+}
 .seldel{
-position:relative;
+  position:relative;
   border-radius:50%;
   background-color:red;
   border:none;
@@ -57,19 +78,5 @@ position:relative;
   width:15px;
   bottom:10px;
   left:5px;
-}
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="modulewrapper">
     <span id="dumplbl"> Dump Fee</span>
-   <div id="dumpbtns">
+    <div id="dumpbtns">
      <div v-for="(str,amt) in fees" :id="str">
        <input type="radio" name="dump" :value="amt" :id="amt" class="dumpradio" v-model="selecteddump">
        <label :for="amt" class="dumpbtn">{{str}} 
@@ -12,7 +12,7 @@
      </div>
   </div>
    <div id="customfee">
-   Custom Fee: <span id="dollarwrapper">$<input type="number" min="0" step=".1" v-model="selecteddump"></span>
+     Custom Fee: <span id="dollarwrapper">$<input type="number" min="0" step=".1" v-model="selecteddump"></span>
    </div>
   </div>
 </template>
@@ -37,12 +37,16 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+#dumplbl{
+  font-size:1.5em;
+}
 #dumpbtns{
   display:grid;
   grid-template-columns:100px 100px 100px;
 }
 .modulewrapper{
   display:grid;
+  grid-template-columns:400px;
   grid-template-rows:100px 100px;
 }
 .dumpradio{
