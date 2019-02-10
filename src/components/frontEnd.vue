@@ -4,15 +4,13 @@
   <donor-module id="donor" :donors="dons"/> 
   <dump-module id="dump"/>
   <print-module id="print"/>
-  <div id="categorywrapper">
-   <category-module v-for="cat in cats" :category="cat"/>
-   </div>
+  <donation-module id="dons" :cats="cats"/>
    </div>
   
 </template>
 
 <script>
-import categoryModule from "./categoryModule.vue"
+import donationModule from "./donationModule.vue"
 import donorModule from "./donorModule.vue"
 import dumpModule from "./dumpModule.vue"
 import printModule from "./printModule.vue"
@@ -22,7 +20,7 @@ export default {
   mounted(){
       this.$store.dispatch('loadDataFrom')
     },
-  components:{categoryModule,donorModule,dumpModule,printModule},
+  components:{donationModule,donorModule,dumpModule,printModule},
   props: {
     msg: String
   },
@@ -57,6 +55,10 @@ grid-area:donor;
   grid-area:title;
   font-size:2em;
 }
+#dons{
+  grid-template-columns:1fr 1fr;
+  grid-area:cats;
+}
 .hello{
   display:grid;
   grid-template:
@@ -64,14 +66,6 @@ grid-area:donor;
     "donor cats cats"
     "dump cats cats"
     "print cats cats"
-}
-#categorywrapper{
-  display:grid;
-  border-radius:5px;
-  box-shadow: inset 0 0 10px #000000;
-  grid-template-columns:1fr 1fr;
-  grid-area:cats;
-  background-color:#f5f5f5;
 }
 h3 {
   margin: 40px 0 0;

@@ -20,14 +20,15 @@
 <script>
 //https://alligator.io/vuejs/add-v-model-support/
 export default {
-  name: 'categoryModule',
+  name: 'dumpModule',
+  computed:{selecteddump:{get:function(){return this.$store.state.seldump},
+  set:function(val){this.$store.dispatch("selDump",val)}}},
   props: {
     msg: String,
     category:String
   },
   data(){
   return{
-  selecteddump:0,
   fees:{0:"No Fee",20:"Small Fee",40:"Large Fee"}
   }
   }
@@ -60,6 +61,7 @@ export default {
   border-radius:4px;
   display:inline-block;
   background-color:white;
+   user-select: none;
 }
 .dumpradio:checked+label{
 background-color:green;

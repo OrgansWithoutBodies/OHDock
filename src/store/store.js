@@ -12,12 +12,12 @@ const endpoint = " http://localhost:8000/"
 const dataep = endpoint+'dock/api/'
 
 const store = new Vuex.Store({
-  highlightedtrip:"11/13/2018",
-  dbbackend:"REST",
-  endpoint:endpoint,
-  mapbackend:"GM",
+  
 //
   state: {
+    seldonor:null,
+    seldump:0,
+    seldons:{},
     donors:[],
     data: {
       "donors":[],
@@ -36,9 +36,10 @@ const store = new Vuex.Store({
       dons.map((don) => {
         state.donors.push(don);
         console.log(don)})
-   
-
     },
+    SET_SELDONS:function(t,e){t.seldons=e},
+    SET_SELDUMP:function(t,e){t.seldump=e},
+    SET_SELDONOR:function(t,e){t.seldonor=e},
     'ADD_DONATION'(state,don,lines){
       state.data.donations.push(don)
       state.data.donationlines.push(don)
@@ -65,7 +66,9 @@ const store = new Vuex.Store({
       })
       }
     },
-
+selDons:function(t,e){var n=t.commit;n("SET_SELDONS",e)},
+selDump:function(t,e){var n=t.commit;n("SET_SELDUMP",e)},
+selDonor:function(t,e){var n=t.commit;n("SET_SELDONOR",e)},
   // updateStopList({commit},stoplist){
   //   alert(stoplist)
   //   commit('UPDATE_STOPLIST_ORDER',stoplist)

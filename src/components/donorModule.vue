@@ -3,15 +3,15 @@
   <button @click='togglemodal'class="adddon">Add New Donor</button>
   <div class="boxwrapper">
     <input type="text" placeholder="Enter Existing Donor" v-model="query">
-    <Autocomplete :query="query" @selected="testfn"/>
+    <Autocomplete :query="query" @selected="setsel"/>
   </div>
   <p>
 
-    <div v-if="selecteddonor!=''" class="seldon">
+    <div v-if="selecteddonor!=null" class="seldon">
       <button class="seldel" @click="clearsel">x</button>
         {{selecteddonor.Firstname}}, {{selecteddonor.Lastname}} donated:
     </div>
-  <add-new-donor-modal v-if="addingnew"/>
+  <add-new-donor-modal v-if="addingnew" @sel='confsel' @close='togglemodal'/>
   </div>
 </template>
 
@@ -28,11 +28,19 @@ export default {
     msg: String,
     category:String
   },
+  computed:{selecteddonor:{get:function(){return this.$store.state.seldonor},
+  set:function(val){this.$store.dispatch("selDonor",val)}}},
+  
   methods:{
     clearsel:function(){
-        this.selecteddonor=''
+        this.selecteddonor=null
     },
-    testfn: function(sel){
+    confsel:function(sel){//called on modal signal
+      console.log(sel)
+      this.setsel(sel)
+      this.togglemodal()
+    },
+    setsel:function(sel){
       this.selecteddonor=sel
       this.query=''
     },
@@ -43,8 +51,7 @@ export default {
   data(){return{
   test:5,
   query:'',
-  addingnew:false,
-  selecteddonor:''}}
+  addingnew:false,}}
 
 }
 </script>

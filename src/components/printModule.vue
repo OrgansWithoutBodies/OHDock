@@ -1,7 +1,7 @@
 <template>
   <div class="modulewrapper">
-  <button>Save & Print Receipt</button><p/>
-  <button>Save without Printing</button>
+  <button @click="print">Save & Print Receipt</button><p/>
+  <button @click="save">Save without Printing</button>
   </div>
 </template>
 
@@ -11,6 +11,31 @@ export default {
   props: {
     msg: String,
     category:String
+  },
+  methods:{
+    validate:function(data){
+      console.log(data)
+      return false
+    },
+    save:function(){
+      var data = {
+        'Donor':this.$store.state.seldonor,
+        'Donations':this.$store.state.seldons,
+        'Dump':this.$store.state.seldump
+      }
+      const valid = this.validate(data)
+      if(valid){
+        console.log("YOU ARE VALID")
+      }
+      else{
+        console.log("umm... y'know your request? yeah it was like,, problematic ://")
+      }
+      return valid
+    },
+    print:function(){
+      this.save()
+      console.log('printing!')
+    },
   },
   data(){return{test:5}}
 

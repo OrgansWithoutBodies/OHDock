@@ -4,9 +4,9 @@
   <div class="pagewrapper">
     <div class="page">
       New Donor Info
-      <div v-for="i in fields">
-      {{i}}
-      <input>
+      <div v-for="(v,k) in fields">
+        {{k}}:
+        <input :name="k" v-model="fields[k]">
       </div>
       <div class="btndiv">
         <button @click="cancelfn">Cancel</button>
@@ -35,17 +35,20 @@ export default {
   },
   methods:{
     cancelfn:function(){//see if fields are empty
-      this.$parent.addingnew=false
+      this.$emit('close')
+    },
+    validate:function(donor){
+      return donor
     },
     savefn:function(){
-      this.$parent.selecteddonor="test"
-      this.$parent.addingnew=false
+      const sel = {'Firstname':this.fields['First Name'],'Lastname':this.fields['Last Name'],'Phone':this.fields['Phone Number'], 'Email':this.fields['Email'],  'Business':this.fields['Business']    }
+      this.$emit('sel',sel)
     }
   },
   data(){return{
   test:5,
   query:'',
-  fields:['First Name','Last Name','Business','Phone Number','Email'],
+  fields:{'First Name':'','Last Name':'','Business':'','Phone Number':'','Email':''},
   selecteddonor:''}}
 
 }

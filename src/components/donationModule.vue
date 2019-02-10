@@ -1,46 +1,57 @@
 <template>
   <div class="modulewrapper">
-    <div class="category">
-    <input class="inputcustom" type="number" @change="selfn" :value="selected">x 
-      <span class="categorylbl">{{category}}</span>
+    <div id="categorywrapper">
+      <category-module v-for="(val,cat) in catdata" :category="cat" @sel=""/>
     </div>
-    <div class="inputwrapper">
-      <div v-for="e in test">
-      <input class="inputbtn" type='radio' :name="category" :value="e-1"  :id="category+e" @click="selfn"/>
-      <label :for="category+e" class="inputlbl">
-        {{e-1}}
-      </label>
-      </div>
-   </div>
   </div>
 </template>
 
 <script>
-//@todo put watcher or smth on v-for="e in test" div? 
-//  
+import categoryModule from "./categoryModule.vue"
 export default {
-  name: 'categoryModule',
+  name: 'donationModule',
+  components:{categoryModule},
   props: {
     msg: String,
-    category:String,
+    cats:Array,
   },
+  beforeMount:function(){
+      var dt = this.$store.state.seldons
+      for(var i = 0;i<this.cats.length;i++){
+        const c=this.cats[i]
+        dt[c]=0
+      }
+      console.log(dt)
+      this.catdata=dt
+    },
   methods:{
-    selfn:function(event){
-    const val = event.
-    console.log(val)
-      this.selected=val
-      this.$emit("sel",val)
+    selfn:function(val,cat){
+      console.log(val)
+      console.log(cat)
     }
   },
+  computed:{
+    seldons:{
+      get:function(){return this.catdata},
+      set:function(val){console.log(val)}
+    },
+    
+  },
   data(){return{test:6,
-  colors:['red','orange','yellow','green','blue','purple'],
-  selected:0}}
+  colors:['red','orange','yellow','green','blue','purple'],selected:0}}
 
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+#categorywrapper{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  border-radius:5px;
+  box-shadow: inset 0 0 10px #000000;
+  background-color:#f5f5f5;
+}
 .modulewrapper{
   padding:10px;
 }
