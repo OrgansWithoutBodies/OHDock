@@ -19,12 +19,24 @@ const store = new Vuex.Store({
     seldump:0,
     seldons:{},
     donors:[],
+    cats:["Books","Furniture","Electronics","Household","Kitchen","Clothes","Toys","Misc."],
     data: {
       "donors":[],
       "donations":[],
       "donationlines":[],
       "donationcategories":[],
       "categorymaps":[]
+    }
+  },
+//
+  getters:{
+    donationobj(state){
+      var dt = this.$store.state.seldons
+      for(var i = 0;i<this.cats.length;i++){
+        const c=this.cats[i]
+        dt[c]=0
+      }
+      return dt
     }
   },
 //
@@ -41,8 +53,8 @@ const store = new Vuex.Store({
     SET_SELDUMP:function(t,e){t.seldump=e},
     SET_SELDONOR:function(t,e){t.seldonor=e},
     'ADD_DONATION'(state,don,lines){
-      state.data.donations.push(don)
-      state.data.donationlines.push(don)
+      state.donations.push(don)
+      state.donationlines.push(don)
     },
   },
 //
@@ -55,7 +67,11 @@ const store = new Vuex.Store({
     //   .catch(e => {
     //   })
     // },
-
+clearSels({commit}){
+    commit("SET_SELDUMP",0)
+    commit("SET_SELDONS",{})
+    commit("SET_SELDONOR",null)
+},
   loadDataFrom({commit},format="REST")  {
     if(format=="REST"){
       axios.get(dataep+'donors/')
@@ -66,6 +82,7 @@ const store = new Vuex.Store({
       })
       }
     },
+
 selDons:function(t,e){var n=t.commit;n("SET_SELDONS",e)},
 selDump:function(t,e){var n=t.commit;n("SET_SELDUMP",e)},
 selDonor:function(t,e){var n=t.commit;n("SET_SELDONOR",e)},

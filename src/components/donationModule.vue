@@ -1,7 +1,7 @@
 <template>
   <div class="modulewrapper">
     <div id="categorywrapper">
-      <category-module v-for="(val,cat) in catdata" :category="cat" @sel=""/>
+      <category-module v-for="cat in cats":category="cat" @sel="selfn"/>
     </div>
   </div>
 </template>
@@ -15,25 +15,27 @@ export default {
     msg: String,
     cats:Array,
   },
-  beforeMount:function(){
+  beforeMount(){
+    this.buildfromlist()
+  },
+  methods:{
+    selfn:function(val,cat){
+      this.seldons[cat]=Number(val)
+    },
+    buildfromlist:function(){//takes set of strings & makes em into keys for empty string obj - useful for arrays w variable elements
       var dt = this.$store.state.seldons
       for(var i = 0;i<this.cats.length;i++){
         const c=this.cats[i]
         dt[c]=0
       }
       console.log(dt)
-      this.catdata=dt
-    },
-  methods:{
-    selfn:function(val,cat){
-      console.log(val)
-      console.log(cat)
+      this.seldons=dt
     }
   },
   computed:{
     seldons:{
-      get:function(){return this.catdata},
-      set:function(val){console.log(val)}
+      get:function(){return this.$store.state.seldons},
+      set:function(val){console.log(val);this.$store.dispatch("selDons",val)}
     },
     
   },

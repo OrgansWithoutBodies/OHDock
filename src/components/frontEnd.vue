@@ -3,7 +3,7 @@
   <div id="titlelbl">DOCK DONATION TAKER</div>
   <donor-module id="donor" :donors="dons"/> 
   <dump-module id="dump"/>
-  <print-module id="print"/>
+  <print-module id="print" @saved="resetsels"/>
   <donation-module id="dons" :cats="cats"/>
    </div>
   
@@ -14,8 +14,8 @@ import donationModule from "./donationModule.vue"
 import donorModule from "./donorModule.vue"
 import dumpModule from "./dumpModule.vue"
 import printModule from "./printModule.vue"
-
 export default {
+
   name: 'frontEnd',
   mounted(){
       this.$store.dispatch('loadDataFrom')
@@ -25,8 +25,13 @@ export default {
     msg: String
   },
   methods:{
-    testfn:function(){console.log(this.$store._mutations)}
-    },
+    testfn:function(){console.log(this.$store._mutations)},
+    resetsels:function(){
+      alert('test')
+      this.$store.dispatch('clearSels')
+//@todo - seldons not working as binding is only one way atm
+    }
+  },
   data(){
     return{
       cats:["Books","Furniture","Electronics","Household","Kitchen","Clothes","Toys","Misc."]

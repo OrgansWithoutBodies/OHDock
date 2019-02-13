@@ -3,14 +3,14 @@
     <span id="dumplbl"> Dump Fee</span>
     <div id="dumpbtns">
      <div v-for="(str,amt) in fees" :id="str">
-       <input type="radio" name="dump" :value="amt" :id="amt" class="dumpradio" v-model="selecteddump">
+       <input type="radio" name="dump" :value="amt" :id="amt" class="dumpradio" v-model.number="selecteddump">
        <label :for="amt" class="dumpbtn">{{str}} 
-         <span v-if="amt>0">
+         <span v-if="amt>0" class="btnamt">
           (${{amt}})
          </span>
-         </label>
+        </label>
      </div>
-  </div>
+   </div>
    <div id="customfee">
      Custom Fee: <span id="dollarwrapper">$<input type="number" min="0" step=".1" v-model="selecteddump"></span>
    </div>
@@ -38,46 +38,44 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+#customfee{
+  grid-area:cust;
+}
 #dumplbl{
   font-size:1.5em;
+  grid-area:lbl;
 }
 #dumpbtns{
   display:grid;
+  grid-area:btns;
   grid-template-columns:100px 100px 100px;
+  grid-column-gap:20px;
 }
 .modulewrapper{
+  align-contents:center;
   display:grid;
-  grid-template-columns:400px;
-  grid-template-rows:100px 100px;
+  grid-template:". lbl ."
+                "btns btns btns"
+                ". cust ."
 }
 .dumpradio{
   display:none;
-  height:20px;
-  width:20px;
+  height:50px;
+  width:50px;
   padding:10px;
 }
 .dumpbtn{
+display:grid;
   padding:7px;
   border-radius:4px;
-  display:inline-block;
   background-color:white;
    user-select: none;
+   width:100px;
+   min-height:50px;
+   align-items:center;
 }
 .dumpradio:checked+label{
 background-color:green;
-}
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+color:white;
 }
 </style>

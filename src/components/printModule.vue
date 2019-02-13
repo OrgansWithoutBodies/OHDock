@@ -14,7 +14,13 @@ export default {
   },
   methods:{
     validate:function(data){
-      console.log(data)
+      if (data['Donor']!=null){
+        //var donsempty = [for (d of data['Donations'].keys) d]
+        if (Object.values(data['Donations']).reduce((a, b) => a + b, 0)>0){
+          return true
+        }
+
+      }
       return false
     },
     save:function(){
@@ -26,6 +32,7 @@ export default {
       const valid = this.validate(data)
       if(valid){
         console.log("YOU ARE VALID")
+        this.$emit('saved')
       }
       else{
         console.log("umm... y'know your request? yeah it was like,, problematic ://")

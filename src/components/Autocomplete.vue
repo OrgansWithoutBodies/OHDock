@@ -60,7 +60,6 @@ export default {
   top:-18px;
   border:1px solid black;
   background-color:white;
-  z-index:999;
 }
 .match{
   border-radius:3px;

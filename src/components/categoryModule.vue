@@ -1,12 +1,17 @@
 <template>
   <div class="modulewrapper">
     <div class="category">
-    <input class="inputcustom" type="number" @change="selfn" :value="selected">x 
+    <input class="inputcustom" type="number" @change="selfn($event.target.value)" :value="selected">x 
       <span class="categorylbl">{{category}}</span>
     </div>
     <div class="inputwrapper">
       <div v-for="e in test">
-      <input class="inputbtn" type='radio' :name="category" :value="e-1"  :id="category+e" @click="selfn"/>
+      <input class="inputbtn" type='radio' 
+        :name="category" 
+        :value="e-1"  
+        :id="category+e" 
+        v-model="selected" 
+        @click="selfn($event.target.value)"/>
       <label :for="category+e" class="inputlbl">
         {{e-1}}
       </label>
@@ -25,11 +30,10 @@ export default {
     category:String,
   },
   methods:{
-    selfn:function(event){
-    const val = event.
-    console.log(val)
+    selfn:function(val){
+
       this.selected=val
-      this.$emit("sel",val)
+      this.$emit("sel",val,this.category)
     }
   },
   data(){return{test:6,
@@ -49,6 +53,7 @@ vertical-align:middle;
 }
 .categorylbl{
   color:red;
+   user-select: none;
   font-size:1.5em;
 
 }

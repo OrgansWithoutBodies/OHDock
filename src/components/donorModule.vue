@@ -3,7 +3,7 @@
   <button @click='togglemodal'class="adddon">Add New Donor</button>
   <div class="boxwrapper">
     <input type="text" placeholder="Enter Existing Donor" v-model="query">
-    <Autocomplete :query="query" @selected="setsel"/>
+    <Autocomplete :query="query" v-if="query!=''" @selected="setsel" class="auto"/>
   </div>
   <p>
 
@@ -11,7 +11,7 @@
       <button class="seldel" @click="clearsel">x</button>
         {{selecteddonor.Firstname}}, {{selecteddonor.Lastname}} donated:
     </div>
-  <add-new-donor-modal v-if="addingnew" @sel='confsel' @close='togglemodal'/>
+  <add-new-donor-modal v-if="addingnew" @sel='confsel' @close='togglemodal' class="modal"/>
   </div>
 </template>
 
@@ -36,7 +36,6 @@ export default {
         this.selecteddonor=null
     },
     confsel:function(sel){//called on modal signal
-      console.log(sel)
       this.setsel(sel)
       this.togglemodal()
     },
@@ -58,6 +57,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.auto{
+  z-index:99;
+  }
+.modal{
+  z-index:999;
+}
 .adddon{grid-area:btn;}
 .modulewrapper{
   display:grid;
